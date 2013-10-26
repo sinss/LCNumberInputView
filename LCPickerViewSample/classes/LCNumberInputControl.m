@@ -184,4 +184,9 @@
     }
     return success;
 }
+
+- (IBAction)downButtonPress:(id)sender
+{
+    [self.delegate numberControl:self didCancelWithNumber:[NSNumber numberWithInteger:0]];
+}
 @end

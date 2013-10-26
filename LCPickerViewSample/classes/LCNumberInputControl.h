@@ -32,6 +32,7 @@ enum
 @property (weak) id <LCNumberInputDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UINavigationBar *titleBar;
 @property (nonatomic, strong) IBOutlet UITextField *numberField;
+@property (nonatomic, strong) IBOutlet UIButton *arrowButton;
 @property (nonatomic, strong) NSMutableString *currentInput;
 @property (nonatomic, strong) NSNumber *inputResult;
 @property (nonatomic, assign) NSInteger inputType;  //number or float
@@ -47,6 +48,8 @@ enum
 - (IBAction)confirmButonPress:(UIButton*)sender;
 
 - (void)showWithOffset:(CGPoint)offset;
-- (void)dismissWithOffset:(CGPoint)offset;;
+- (void)dismissWithOffset:(CGPoint)offset;
+
+- (IBAction)downButtonPress:(id)sender;
 
 @end

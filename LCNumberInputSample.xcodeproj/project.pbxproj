@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F9FCAFF181BD2420076AC50 /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9FCAFD181BD2420076AC50 /* arrow_down.png */; };
+		0F9FCB00181BD2420076AC50 /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F9FCAFE181BD2420076AC50 /* arrow_down@2x.png */; };
 		0FBF83DB1816E35700526AB2 /* LCNumberInputControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBF83D91816E35700526AB2 /* LCNumberInputControl.m */; };
 		0FBF83DC1816E35700526AB2 /* LCNumberInputControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBF83D91816E35700526AB2 /* LCNumberInputControl.m */; };
 		0FBF83DD1816E35700526AB2 /* LCNumberInputControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FBF83DA1816E35700526AB2 /* LCNumberInputControl.xib */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F9FCAFD181BD2420076AC50 /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down.png; sourceTree = "<group>"; };
+		0F9FCAFE181BD2420076AC50 /* arrow_down@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@2x.png"; sourceTree = "<group>"; };
 		0FBF83D81816E35700526AB2 /* LCNumberInputControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCNumberInputControl.h; sourceTree = "<group>"; };
 		0FBF83D91816E35700526AB2 /* LCNumberInputControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCNumberInputControl.m; sourceTree = "<group>"; };
 		0FBF83DA1816E35700526AB2 /* LCNumberInputControl.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LCNumberInputControl.xib; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 		7C64E4841814D50000E30DC1 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				0F9FCAFD181BD2420076AC50 /* arrow_down.png */,
+				0F9FCAFE181BD2420076AC50 /* arrow_down@2x.png */,
 				0FBF83DF1816E5ED00526AB2 /* MathFunction.h */,
 				0FBF83E01816E5ED00526AB2 /* MathFunction.m */,
 				0FBF83D81816E35700526AB2 /* LCNumberInputControl.h */,
@@ -256,6 +262,8 @@
 				7C64E4681814D4BB00E30DC1 /* Images.xcassets in Resources */,
 				7C64E45A1814D4BB00E30DC1 /* InfoPlist.strings in Resources */,
 				0FBF83DD1816E35700526AB2 /* LCNumberInputControl.xib in Resources */,
+				0F9FCAFF181BD2420076AC50 /* arrow_down.png in Resources */,
+				0F9FCB00181BD2420076AC50 /* arrow_down@2x.png in Resources */,
 				7C64E4631814D4BB00E30DC1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
