@@ -10,8 +10,8 @@
 
 #define kNumberControlWidth 320
 #define kNumberControlHeight 300
-#define kAnimationDuration 0.3
-#define kNumberInputTitleBarColor [UIColor redColor]
+#define kAnimationDuration 0.4
+#define kNumberInputTitleBarColor [UIColor colorWithRed:0.251 green:0.502 blue:0.000 alpha:1.000]
 
 enum
 {
@@ -46,7 +46,7 @@ enum
 - (IBAction)cancelButtonPress:(UIButton*)sender;
 - (IBAction)confirmButonPress:(UIButton*)sender;
 
-- (void)show;
-- (void)dismiss;
+- (void)showWithOffset:(CGPoint)offset;
+- (void)dismissWithOffset:(CGPoint)offset;;
 
 @end

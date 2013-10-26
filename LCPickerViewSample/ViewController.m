@@ -44,12 +44,22 @@
     [inputView.numberField setPlaceholder:[NSString stringWithFormat:@"Input you number"]];
     [self.view addSubview:inputView];
     
-    [inputView show];
+    /*
+     if your parent controller has a tableview , then your need tableview contentoffset
+     
+     eg. self.tableView.contentoffset
+     */
+    [inputView showWithOffset:CGPointMake(0, 0)];
 }
 
 - (void)dismissPickerControl:(LCNumberInputControl*)view
 {
-    [view dismiss];
+    /*
+     if your parent controller has a tableview , then your need tableview contentoffset
+     
+     eg. self.tableView.contentoffset
+     */
+    [view dismissWithOffset:CGPointMake(0, 0)];
 }
 
 #pragma mark - LCTableViewPickerDelegate

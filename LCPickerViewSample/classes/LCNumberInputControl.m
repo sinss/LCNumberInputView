@@ -49,7 +49,15 @@
 */
 
 - (void)initializeControl
-{   
+{
+    if ([_titleBar respondsToSelector:@selector(setBarTintColor:)])
+    {
+        _titleBar.barTintColor = kNumberInputTitleBarColor;
+    }
+    else
+    {
+        _titleBar.tintColor = kNumberInputTitleBarColor;
+    }
     //add UIPanGesture
     UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
     [panRecognizer setMinimumNumberOfTouches:1];
@@ -82,7 +90,7 @@
     }
 }
 
-- (void)show
+- (void)showWithOffset:(CGPoint)offset;
 {
     UIViewController *parentView = (UIViewController*)_delegate;
     //add mask
@@ -91,7 +99,7 @@
     [parentView.view insertSubview:_maskView atIndex:2];
     
     [UIView animateWithDuration:kAnimationDuration delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
-        [self setFrame:CGRectMake(0, parentView.view.frame.size.height - kNumberControlHeight, kNumberControlWidth, kNumberControlHeight)];
+        [self setFrame:CGRectMake(0, parentView.view.frame.size.height - kNumberControlHeight + offset.y, kNumberControlWidth, kNumberControlHeight)];
         [_maskView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6]];
     } completion:^(BOOL finished){
         //scroll to currentValue
@@ -102,13 +110,13 @@
     }];
 }
 
-- (void)dismiss
+- (void)dismissWithOffset:(CGPoint)offset
 {
     UIViewController *parentView = (UIViewController*)_delegate;
     
     //animation to dismiss
     [UIView animateWithDuration:kAnimationDuration delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
-        [self setFrame:CGRectMake(0, parentView.view.frame.size.height, kNumberControlHeight, kNumberControlWidth)];
+        [self setFrame:CGRectMake(0, parentView.view.frame.size.height + offset.y, kNumberControlHeight, kNumberControlWidth)];
         [_maskView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0]];
     } completion:^(BOOL finished){
         [self removeFromSuperview];
