@@ -96,7 +96,7 @@
     //add mask
     self.maskView = [[UIView alloc] initWithFrame:parentView.view.bounds];
     [_maskView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0]];
-    [parentView.view insertSubview:_maskView atIndex:2];
+    [parentView.view insertSubview:_maskView atIndex:[parentView.view.subviews count] - 1];
     
     [UIView animateWithDuration:kAnimationDuration delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
         [self setFrame:CGRectMake(0, parentView.view.frame.size.height - kNumberControlHeight + offset.y, kNumberControlWidth, kNumberControlHeight)];
