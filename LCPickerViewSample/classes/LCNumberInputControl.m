@@ -7,7 +7,10 @@
 //
 
 #import "LCNumberInputControl.h"
-#import "MathFunction.h"
+#import "NSNumber+extend.h"
+#import "NSString+extend.h"
+
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 @interface LCNumberInputControl() <UIGestureRecognizerDelegate>
 
@@ -90,16 +93,15 @@
     }
 }
 
-- (void)showWithOffset:(CGPoint)offset;
+- (void)showWithOffset:(CGPoint)offset inView:(UIView *)view
 {
-    UIViewController *parentView = (UIViewController*)_delegate;
     //add mask
-    self.maskView = [[UIView alloc] initWithFrame:parentView.view.bounds];
+    self.maskView = [[UIView alloc] initWithFrame:view.bounds];
     [_maskView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0]];
-    [parentView.view insertSubview:_maskView atIndex:[parentView.view.subviews count] - 1];
+    [view insertSubview:_maskView atIndex:[view.subviews count] - 1];
     
     [UIView animateWithDuration:kAnimationDuration delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
-        [self setFrame:CGRectMake(0, parentView.view.frame.size.height - kNumberControlHeight + offset.y, kNumberControlWidth, kNumberControlHeight)];
+        [self setFrame:CGRectMake(0, view.frame.size.height - kNumberControlHeight + offset.y, kNumberControlWidth, kNumberControlHeight)];
         [_maskView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6]];
     } completion:^(BOOL finished){
         //scroll to currentValue
@@ -110,13 +112,18 @@
     }];
 }
 
+- (void)showWithOffset:(CGPoint)offset inView:(UIView *)view pick:(didPickCallback)pick cancel:(didCancelCallback)cancel
+{
+    [self showWithOffset:offset inView:view];
+    self.pickCallback = pick;
+    self.cancelCallback = cancel;
+}
+
 - (void)dismissWithOffset:(CGPoint)offset
 {
-    UIViewController *parentView = (UIViewController*)_delegate;
-    
     //animation to dismiss
     [UIView animateWithDuration:kAnimationDuration delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
-        [self setFrame:CGRectMake(0, parentView.view.frame.size.height + offset.y, kNumberControlHeight, kNumberControlWidth)];
+        [self setFrame:CGRectMake(0, SCREEN_HEIGHT + offset.y, kNumberControlHeight, kNumberControlWidth)];
         [_maskView setBackgroundColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0]];
     } completion:^(BOOL finished){
         [self removeFromSuperview];
@@ -133,7 +140,7 @@
     }
     else
     {
-        str = [NSString stringWithFormat:@"%i", [sender tag]];
+        str = [NSString stringWithFormat:@"%ldi", (long)[sender tag]];
     }
     
     if ([self checkIsIntegerOrFloat:str])
@@ -158,26 +165,38 @@
 }
 - (IBAction)cancelButtonPress:(UIButton*)sender
 {
-    [self.delegate numberControl:self didCancelWithNumber:[NSNumber numberWithInteger:0]];
+    if ([self.delegate respondsToSelector:@selector(numberControl:didInputWithNumber:)])
+        [self.delegate numberControl:self didCancelWithNumber:[NSNumber numberWithInteger:0]];
+    
+    //pick a number callback
+    if (self.pickCallback)
+        self.pickCallback(self, @0);
 }
 - (IBAction)confirmButonPress:(UIButton*)sender
 {
-    [self.delegate numberControl:self didInputWithNumber:[NSNumber numberWithDouble:[_currentInput doubleValue]]];
+    if ([self.delegate respondsToSelector:@selector(numberControl:didInputWithNumber:)])
+        [self.delegate numberControl:self didInputWithNumber:[NSNumber numberWithDouble:[_currentInput doubleValue]]];
+    
+    //pick a number callback
+    if (self.pickCallback)
+        self.pickCallback(self, [NSNumber numberWithDouble:[_currentInput doubleValue]]);
 }
 
 - (BOOL)checkIsIntegerOrFloat:(NSString*)str
 {
     BOOL success = YES;
+    //the number is Integer
     if (_inputType == 0)
     {
-        if (![[MathFunction mathFunctionInstance] isPureInt:[NSString stringWithFormat:@"%@%@",_currentInput, str]])
+        if ([[NSString stringWithFormat:@"%@%@",_currentInput, str] isPureInt])
         {
             success = NO;
         }
     }
     else
     {
-        if (![[MathFunction mathFunctionInstance] isPureFloat:[NSString stringWithFormat:@"%@%@",_currentInput, str]])
+        //the number is float
+        if ([[NSString stringWithFormat:@"%@%@",_currentInput, str] isPureFloat])
         {
             success = NO;
         }
@@ -187,6 +206,10 @@
 
 - (IBAction)downButtonPress:(id)sender
 {
-    [self.delegate numberControl:self didCancelWithNumber:[NSNumber numberWithInteger:0]];
+    if ([self.delegate respondsToSelector:@selector(numberControl:didCancelWithNumber:)])
+        [self.delegate numberControl:self didCancelWithNumber:[NSNumber numberWithInteger:0]];
+    
+    if (self.cancelCallback)
+        self.cancelCallback(self);
 }
 @end

@@ -13,6 +13,9 @@
 #define kAnimationDuration 0.4
 #define kNumberInputTitleBarColor [UIColor colorWithRed:0.251 green:0.502 blue:0.000 alpha:1.000]
 
+typedef void (^didPickCallback) (id sender, NSNumber *number);
+typedef void (^didCancelCallback) (id sender);
+
 enum
 {
     numberInputTypeInteger = 0,
@@ -41,13 +44,17 @@ enum
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *placeHolder;
 
+@property (copy, readwrite) didPickCallback pickCallback;
+@property (copy, readwrite) didCancelCallback cancelCallback;
+
 - (IBAction)numberButtonPress:(UIButton*)sender;
 - (IBAction)dotButtonPress:(UIButton*)sender;
 - (IBAction)clearButtonPress:(UIButton*)sender;
 - (IBAction)cancelButtonPress:(UIButton*)sender;
 - (IBAction)confirmButonPress:(UIButton*)sender;
 
-- (void)showWithOffset:(CGPoint)offset;
+- (void)showWithOffset:(CGPoint)offset inView:(UIView*)view;
+- (void)showWithOffset:(CGPoint)offset inView:(UIView *)view pick:(didPickCallback)pick cancel:(didCancelCallback)cancel;
 - (void)dismissWithOffset:(CGPoint)offset;
 
 - (IBAction)downButtonPress:(id)sender;

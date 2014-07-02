@@ -49,7 +49,7 @@
      
      eg. self.tableView.contentoffset
      */
-    [inputView showWithOffset:CGPointMake(0, 0)];
+    [inputView showWithOffset:CGPointMake(0, 0) inView:self.view];
 }
 
 - (IBAction)showFloat:(id)sender
@@ -70,7 +70,7 @@
      
      eg. self.tableView.contentoffset
      */
-    [inputView showWithOffset:CGPointMake(0, 0)];
+    [inputView showWithOffset:CGPointMake(0, 0) inView:self.view];
 }
 
 - (void)dismissPickerControl:(LCNumberInputControl*)view
@@ -91,14 +91,12 @@
     self.pickValue = number;
     if (view.tag == 0)
     {
-        [_resultLabel setText:[NSString stringWithFormat:@"%i", number.integerValue]];
+        [_resultLabel setText:[NSString stringWithFormat:@"%li", (long)number.integerValue]];
     }
     else if (view.tag == 1)
     {
         [_resultLabel setText:[NSString stringWithFormat:@"%f", number.doubleValue]];
     }
-    
-    
     
     [self dismissPickerControl:view];
 }
