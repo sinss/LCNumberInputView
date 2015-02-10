@@ -3,11 +3,23 @@ LCPickerView
 
 a simple PickerView
 
-how to use : 
+#how to use : 
 
-step 1 classes folder to you project bundle
-step 2 implement LCItemPickerDelegate
-step 3 implement show & hide method
+```objective-c
+#import "LCNumberInputControl.h"
+
+LCNumberInputControl *inputView = [[[NSBundle mainBundle] loadNibNamed:@"LCNumberInputControl" owner:self options:nil] objectAtIndex:0];
+    [inputView setFrame:CGRectMake(0, self.view.frame.size.height, kNumberControlWidth, kNumberControlHeight)];
+    [inputView setDelegate:self];
+    [inputView setTag:0];
+    [inputView setInputType:numberInputTypeInteger];
+    //current pick value
+    [inputView setInputResult:[NSNumber numberWithInteger:[_resultLabel.text integerValue]]];
+    [inputView.titleBar.topItem setTitle:[NSString stringWithFormat:@"Please input a number"]];
+    [inputView.numberField setPlaceholder:[NSString stringWithFormat:@"Input you number"]];
+    [self.view addSubview:inputView];
+    
+```
 
 ======================================================================
 
